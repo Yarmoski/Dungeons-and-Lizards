@@ -1,5 +1,4 @@
-#Gelfand Adventure Quest
-#setuped 9AM 6/26/19
+#Dungeons and Lizards
 #Ted
 
 import cmd
@@ -23,18 +22,18 @@ class Player:
         #Combat
         self.hp = 100.0
         self.maxhp = 100.0
-        self.power = 500 #make sure this is default 50
+        self.power = 50 #make sure this is default 50
         self.defense = 0
         self.defeated_enemies = []
         self.location = "b2"
         self.potions = 1
         #Minions and tickets
-        self.minions = 20 #make sure this is default 0
-        self.tickets = 0
+        self.minions = 0 #make sure this is default 0
+        self.tickets = 1
         #Completion Percentage WIP
         self.completion = 0
         #Money
-        self.gold = 0
+        self.gold = 100
         #Fishing
         self.fishinglimit = 10
         self.fishingrod = False
@@ -44,8 +43,10 @@ class Player:
         self.flute = False
         self.revive = 0
         #Location specific trackers
+        self.hometicket = True
         self.dojo = 0
         self.lizardqueen = 0 #0 = never seen, 1 = declined offer to fight, 2 = defeated
+
 myplayer = Player()
 
 class suspicious_shop:
@@ -91,7 +92,7 @@ def help_menu_selections():
         title_screen()
     elif option.lower() == ("please help"):
         print("======================================")
-        print("  Welcome to Gelfand Adventure Quest! ")
+        print("    Welcome to Dungeons and Lizards!  ")
         print("======================================")
         print("Fine here you go:")
         print("- Use 'move' to move")
@@ -102,7 +103,7 @@ def help_menu_selections():
         print("- COMBAT MOVES: Slash High, Slash Low, Parry, Sidestep, Jump")
         print("- In combat, you have a limited time to enter your move depending on the enemy")
         print("- Make sure to enter your combat moves correctly or you will stumble!")
-        print("- Remember the Honourable Gelfand Code")
+        print("- Remember the Honourable Lizard Code")
         typingh = input("Now type 15 'h' characters without messing up to return to the main menu: ")
         if typingh.lower() == "hhhhhhhhhhhhhhh":
             title_screen()
@@ -115,7 +116,7 @@ def help_menu_selections():
             title_screen()
         elif option.lower() == ("please help"):
             print("======================================")
-            print("  Welcome to Gelfand Adventure Quest! ")
+            print("    Welcome to Dungeons and Lizards!  ")
             print("======================================")
             print("Fine here you go:")
             print("- Use 'move' to move")
@@ -126,7 +127,7 @@ def help_menu_selections():
             print("- COMBAT MOVES: Slash High, Slash Low, Parry, Sidestep, Jump")
             print("- In combat, you have a limited time to enter your move depending on the enemy")
             print("- Make sure to enter your combat moves correctly or you will stumble!")
-            print("- Remember the Honourable Gelfand Code")
+            print("- Remember the Honourable Lizard Code")
             typingh = input("Now type 15 'h' characters without messing up to return to the main menu: ")
             if typingh.lower() == "hhhhhhhhhhhhhhh":
                 title_screen()
@@ -137,7 +138,7 @@ def help_menu_selections():
 def title_screen():
     os.system('cls')
     print("======================================")
-    print("  Welcome to Gelfand Adventure Quest! ")
+    print("    Welcome to Dungeons and Lizards!  ")
     print("======================================")
     print("                -PLAY-                ")
     print("                -HELP-                ")
@@ -146,9 +147,9 @@ def title_screen():
 
 def help_menu():
     print("======================================")
-    print("  Welcome to Gelfand Adventure Quest! ")
+    print("    Welcome to Dungeons and Lizards!  ")
     print("======================================")
-    print("???? baby ass why do you need help")
+    print("Are you so terrible that you need help??")
     print("           -MAIN MENU-            ")
     print("          -PLEASE HELP-           ")
     help_menu_selections()
@@ -211,7 +212,7 @@ world = {
         'a1' : {
             ZONENAME: "Minion Market",
             DESCRIPTION : "Buying and selling of minions takes place here.",
-            EXAMINATION : "There seems to be an unlimited amount of them.",
+            EXAMINATION : "The area is very busy and loud.",
             SOLVED : False,
             UP : "",
             DOWN : "b1",
@@ -221,7 +222,7 @@ world = {
         'a2' : {
             ZONENAME: "Your Backyard",
             DESCRIPTION : "A great plantation stretches before you.",
-            EXAMINATION : "The main crop grown here appears to be white and fluffy.",
+            EXAMINATION : "There is a huge variety of plants present here.",
             SOLVED : False,
             UP : "",
             DOWN : "b2",
@@ -259,9 +260,9 @@ world = {
             RIGHT : "b2",
         },
         'b2' : {
-            ZONENAME: "Blob Fish Abode",
-            DESCRIPTION : "The famous Blob Fish Aquarium.",
-            EXAMINATION : "It is filled with SNAFU Light Novels.",
+            ZONENAME: "Your Abode",
+            DESCRIPTION : "Your beautiful home.",
+            EXAMINATION : "It is filled with paintings.",
             SOLVED : False,
             UP : "a2",
             DOWN : "",
@@ -320,12 +321,12 @@ world = {
         },
         'c4' : {
             ZONENAME: "High Mountain Pass",
-            DESCRIPTION : "It is said that a hidden dojo can be found near this area.",
+            DESCRIPTION : "This is a dangerous place.",
             EXAMINATION : "The weather is extremely cold and snow covers most of the ground.",
             SOLVED : False,
             UP : "b4",
             DOWN : "d4",
-            LEFT : "c3",
+            LEFT : "",
             RIGHT : "",
         },
         'd1' : {
@@ -353,15 +354,15 @@ world = {
             DESCRIPTION : "The shop only contains a few oddly specific items.",
             EXAMINATION : "As you enter the shop, the long-haired shopkeeper stares you down.",
             SOLVED : False,
-            UP : "c3",
+            UP : "",
             DOWN : "",
-            LEFT : "d2",
+            LEFT : "",
             RIGHT : "d4",
         },
         'd4' : {
-            ZONENAME: "",
-            DESCRIPTION : "description",
-            EXAMINATION : "info",
+            ZONENAME: "Lonely Passage",
+            DESCRIPTION : "There is barely anything here.",
+            EXAMINATION : "There is nothing of interest.",
             SOLVED : False,
             UP : "c4",
             DOWN : "",
@@ -392,6 +393,10 @@ def print_location():
     print("\n" + "=" * len(world[myplayer.location][DESCRIPTION]))
 
 def prompt():
+    if myplayer.level >= 16:
+        congrats = "\nCongrats! You have defeated the enemies that are currently present in the game. This game is unfinished and may see further development in the future. Thank you for playing!"
+        scrolling_text(congrats)
+        myplayer.gameover = True
     print_location()
     what_would_you_like_to_do = "\nWhat would you like to do?"
     scrolling_text_super_fast(what_would_you_like_to_do)
@@ -431,6 +436,8 @@ def prompt():
             rod = "\nYou have a fishing rod."
             scrolling_text_fast(rod)
         if myplayer.potions >= 1:
+            potions = "\nYou have {} potions.".format(str(myplayer.potions))
+            scrolling_text(potions)
             potion = "\nWould you like to quaff a potion and restore 100 HP?"
             scrolling_text_fast(potion)
             choice = input(">>> ")
@@ -721,24 +728,24 @@ class lizard_sentry:
         self.goldgain = 10
         self.levelgain = 0
         self.movedict = {#slash High
-                     1 : ["\n\nHe runs straight toward you with his face exposed.", 
-                     "\n\nSprinting toward you, he holds his sword near the ground" ],
+                     1 : ["\n\nThe sentry momentarily drops its shield on the ground.", 
+                     "\n\nIts sword is near to the ground." ],
                      #slash Low
-                     2 : ["\n\nThe man momentarily covers his face and cries an ear-deafening roar for his mommy.", 
-                     "\n\nAn anime cosplayer walks by and the man raises his hands in excitement."],
+                     2 : ["\n\nThe lizard lifts its shield to its face.", 
+                     "\n\nIt raises its sword to the ceiling."],
                      #slash high or low (resting)
-                     3 : ["\n\nMoving around proves too much for him as he stands still to catch his breath."],
+                     3 : ["\n\nThe sentry trips and is stunned for a few seconds."],
                      #Parry
-                     4 : ["\n\nThe man swings his antique Samurai sword directly at you.", 
-                     "\n\nHe attempts a complicated screaming, spinning attack which just ends up as a regular sword swing."],
+                     4 : ["\n\nIt slashes its sword straight at you.", 
+                     "\n\nThe lizard aims right for your face."],
                      #Sidestep
-                     5 : ["\n\nWhile running toward you, the man trips and comes hurtling like a massive boulder.", 
-                     "\n\nWhile trying his spinning attack, he falls backwards straight toward you."],
+                     5 : ["\n\nThe sentry rapidly charges at you.", 
+                     "\n\nIt spits a vertical column of acid at you."],
                      #Duck
-                     6 : ["\n\nThe man pulls anime figurines out of his pocket and throws several at you.", 
-                     "\n\nReaching into his anime expo swag bag, the man pulls out origami ninja stars and chucks them at you.",],
+                     6 : ["\n\nThe lizard sprays a line of acid from left to right.", 
+                     "\n\nThe sentry quickly pulls out a bow and shoots an arrow toward your chest.",],
                      #Jump
-                     7 : ["\n\nHe prepares to sweep the area beneath you with his sword."]
+                     7 : ["\n\nIt sweeps the ground under your feet with its sword."]
     }
 
 class lizard_guard:
@@ -749,24 +756,24 @@ class lizard_guard:
         self.goldgain = 25
         self.levelgain = 1
         self.movedict = {#slash High
-                     1 : ["\n\nHe runs straight toward you with his face exposed.", 
-                     "\n\nSprinting toward you, he holds his sword near the ground" ],
+                     1 : ["\n\nThe royal guard blocks low with its spear.", 
+                     "\n\nSmall helper lizards begin applying protective coating to the guard's legs." ],
                      #slash Low
-                     2 : ["\n\nThe man momentarily covers his face and cries an ear-deafening roar for his mommy.", 
-                     "\n\nAn anime cosplayer walks by and the man raises his hands in excitement."],
+                     2 : ["\n\nThe lizard raises its spear to its face.", 
+                     "\n\nIt is prepared for a high-slashing attack."],
                      #slash high or low (resting)
-                     3 : ["\n\nMoving around proves too much for him as he stands still to catch his breath."],
+                     3 : ["\n\nThe guard stops to adjust its royal uniform."],
                      #Parry
-                     4 : ["\n\nThe man swings his antique Samurai sword directly at you.", 
-                     "\n\nHe attempts a complicated screaming, spinning attack which just ends up as a regular sword swing."],
+                     4 : ["\n\nIt aims toward your face in an attack.", 
+                     "\n\nThe lizard performs a standard attack with its spear."],
                      #Sidestep
-                     5 : ["\n\nWhile running toward you, the man trips and comes hurtling like a massive boulder.", 
-                     "\n\nWhile trying his spinning attack, he falls backwards straight toward you."],
+                     5 : ["\n\nThe guard tries to body slam onto you."],
                      #Duck
-                     6 : ["\n\nThe man pulls anime figurines out of his pocket and throws several at you.", 
-                     "\n\nReaching into his anime expo swag bag, the man pulls out origami ninja stars and chucks them at you.",],
+                     6 : ["\n\nAs helpers approach with an extra spear, the lizard throws its old one at your face.", 
+                     "\n\nHelper lizards throw a flurry of rocks at your face.",],
                      #Jump
-                     7 : ["\n\nHe prepares to sweep the area beneath you with his sword."]
+                     7 : ["\n\nTiny helper lizards charge at your feet.",
+                     "\n\nThe guard sweeps your feet with its spear."]
     }
 
 class lizard_queen:
@@ -777,24 +784,22 @@ class lizard_queen:
         self.goldgain = 0
         self.levelgain = 3
         self.movedict = {#slash High
-                     1 : ["\n\nHe runs straight toward you with his face exposed.", 
-                     "\n\nSprinting toward you, he holds his sword near the ground" ],
+                     1 : ["\n\nShe lashes out, exposing her face."],
                      #slash Low
-                     2 : ["\n\nThe man momentarily covers his face and cries an ear-deafening roar for his mommy.", 
-                     "\n\nAn anime cosplayer walks by and the man raises his hands in excitement."],
+                     2 : ["\n\nShe puts her claws in an X formation to protect her face."],
                      #slash high or low (resting)
-                     3 : ["\n\nMoving around proves too much for him as he stands still to catch his breath."],
+                     3 : ["\n\nThe queen pauses to adjust her crown."],
                      #Parry
-                     4 : ["\n\nThe man swings his antique Samurai sword directly at you.", 
-                     "\n\nHe attempts a complicated screaming, spinning attack which just ends up as a regular sword swing."],
+                     4 : ["\n\nShe slashes her claw directly at your face.", 
+                     "\n\nThe queen swipes at your face."],
                      #Sidestep
-                     5 : ["\n\nWhile running toward you, the man trips and comes hurtling like a massive boulder.", 
-                     "\n\nWhile trying his spinning attack, he falls backwards straight toward you."],
+                     5 : ["\n\nThe queen triggers a boulder to fall right on top of you.", 
+                     "\n\nShe throws a bundle of helper lizards to land on top of you."],
                      #Duck
-                     6 : ["\n\nThe man pulls anime figurines out of his pocket and throws several at you.", 
-                     "\n\nReaching into his anime expo swag bag, the man pulls out origami ninja stars and chucks them at you.",],
+                     6 : ["\n\nThe queen commands lizard sentries to fire arrows at you.", 
+                     "\n\nHelper lizards are rapidly thrown in a straight line toward your face.",],
                      #Jump
-                     7 : ["\n\nHe prepares to sweep the area beneath you with his sword."]
+                     7 : ["\n\nThe floor is collapsing, get to high ground!"]
     }
 
 ##END OF LIZARDS
@@ -832,7 +837,7 @@ class old_man:
         self.hp = 10
         self.maxhp = self.hp
         self.power = 50
-        self.goldgain = 0
+        self.goldgain = 100
         self.levelgain = 1
         self.movedict = {#slash high
                     1 : ["\n\nHis face is exposed."],
@@ -960,7 +965,6 @@ sweaty_man = sweaty_man()
 old_man = old_man()
 raccoon = raccoon()
 proud_warrior = proud_warrior()
-
 corrupted_demon = corrupted_demon()
 
 ############
@@ -1009,29 +1013,30 @@ def player_examine():
                     purchase_cost_ticket = "\nMinion Master: A purchase is going to cost you a Redeem Ticket."
                     scrolling_text(purchase_cost_ticket)
                     if myplayer.tickets > 0:
+                        print("")
                         print("===========")
                         oh_you_have_ticket = "\nMinion Master: Oh, you have a ticket!"
                         scrolling_text(oh_you_have_ticket)
                         how_many_would_you_like = "\nMinion Master: How many would you like?"
                         scrolling_text(how_many_would_you_like)
                         purchase_amt = input(">>> ")
-                        if purchase_amt > myplayer.tickets:
+                        if int(purchase_amt) > myplayer.tickets:
                             print("================================")
                             no_ticket_stop_wasting_time = "\nMinion Master: You don't have enough tickets. Stop wasting my time and come back when you do."
                             scrolling_text(no_ticket_stop_wasting_time)
                             player_item_update()
-                        elif purchase_amt == myplayer.tickets:
+                        elif int(purchase_amt) == myplayer.tickets:
                             print("====================================================")
                             you_want_to_spend_all_tickets = "\nMinion Master: You want to spend all of your tickets? Alright then."
                             scrolling_text(you_want_to_spend_all_tickets)
                             myplayer.minions += myplayer.tickets
                             myplayer.tickets = 0
                             player_item_update()
-                        elif purchase_amt < myplayer.tickets:
+                        elif int(purchase_amt) < myplayer.tickets:
                             minion_master_here_you_go = "\nMinion Master: Here you go!"
                             scrolling_text(minion_master_here_you_go)
-                            myplayer.minions += purchase_amt
-                            myplayer.tickets -= purchase_amt
+                            myplayer.minions += int(purchase_amt)
+                            myplayer.tickets -= int(purchase_amt)
                             player_item_update()
                     else:
                         no_ticket_text = "\nMinion Master: Return once you have tickets."
@@ -1083,24 +1088,24 @@ def player_examine():
                     scrolling_text_slow(waiting)
                     quick_catch = "\nQuickly! Type 'catch' to get the fish!"
                     scrolling_text(quick_catch)
-                    catch_input = timer(1)
+                    catch_input = timer(2)
                     if catch_input == "catch":
-                        fish_1 = random.randrange(1000000, 2000000)
+                        fish_1 = random.randrange(10000, 20000)
                         fish_fighting_1 = "\n The fish is fighting back! Type in " + str(fish_1) + " to fight back!"
                         scrolling_text(fish_fighting_1)
                         fish_input = timer(7)
                         if fish_input == str(fish_1):
-                            fish_2 = random.randrange(1000000, 20000000)
+                            fish_2 = random.randrange(10000, 200000)
                             fish_fighting_2 = "\n The fish is struggling hard! Type in " + str(fish_2) + " to fight it!"
                             scrolling_text(fish_fighting_2)
                             fish_input = timer(9)
                             if fish_input == str(fish_2):
-                                fish_3 = random.randrange(1000000, 20000000)
+                                fish_3 = random.randrange(10000, 200000)
                                 fish_fighting_3 = "\n Wow this fish is tough! Type in " + str(fish_3) + " to combat it!"
                                 scrolling_text(fish_fighting_3)
                                 fish_input = timer(10)
                                 if fish_input == str(fish_3):
-                                    fish_4 = random.randrange(1000000, 2000000000)
+                                    fish_4 = random.randrange(10000, 20000000)
                                     fish_fighting_4 = "\n Its strength is surely waning! Type in " + str(fish_4) + " for a final push!"
                                     scrolling_text(fish_fighting_4)
                                     fish_input = timer(15)
@@ -1109,7 +1114,6 @@ def player_examine():
                                         caught_fish = "\nCongratulations! You caught a " + str(fish_weight) + " pound Blob Fish! Wow!"
                                         scrolling_text(caught_fish)
                                         myplayer.fish.append(fish_weight)
-                                        myplayer.completion += 6.25
                                         myplayer.fishinglimit -= 1
                                         limit = "\nYour fishing permit only allows " + str(myplayer.fishinglimit) + " more catches!"
                                         scrolling_text(limit)
@@ -1162,10 +1166,11 @@ def player_examine():
                             no_items = "\nThere are no more items available."
                             scrolling_text(no_items)
                         else:
-                            available = "\nThe available items are: "
-                            scrolling_text(available)
                             gold = "\nYou have " + str(myplayer.gold) + " gold available."
                             scrolling_text(gold)
+                            available = "\nThe available items are: "
+                            scrolling_text(available)
+
                             for key, value in regular_shop.inventory.items():
                                 scrolling_text("\n" + key + " which costs " + str(value) + " gold.")
                             selection = input(">>> ")
@@ -1284,10 +1289,8 @@ def player_examine():
                             scrolling_text(no_fish)
 
                         if myplayer.minions > 0:
-                            ask = "\nShopkeeper: Would you like to sell any minions for 200 gold each?"
-                            ask2 = "\n (This is for advanced players only, do not select yes if you are new to the game.)"
+                            ask = "\nShopkeeper: Would you like to sell any minions for 50 gold each?"
                             scrolling_text(ask)
-                            scrolling_text_fast(ask2)
                             choice = input(">>> ")
 
                             if choice in yes_list:
@@ -1296,17 +1299,17 @@ def player_examine():
                                 scrolling_text(how_many)
                                 amount_choice = input(">>> ")
 
-                                if amount_choice >= myplayer.minions:
+                                if int(amount_choice) >= myplayer.minions:
                                     alright = "\nShopkeeper: Nice doing business."
                                     scrolling_text(alright)
-                                    for i in range(0, amount_choice):
-                                        minion_sell = "\nMinion sold for 200 gold."
+                                    for i in range(0, int(amount_choice)):
+                                        minion_sell = "\nMinion sold for 50 gold."
                                         scrolling_text(minion_sell)
                                         myplayer.minions -= 1
-                                        myplayer.gold += 200
+                                        myplayer.gold += 50
 
 
-                                if amount_choice < myplayer.minions:
+                                if int(amount_choice) < myplayer.minions:
                                     dont = "\nShopkeeper: You don't have that many minions."
                                     scrolling_text(dont)
 
@@ -1346,6 +1349,15 @@ def player_examine():
                 if choice in yes_list:
                     prepare = "\nYou prepare for intense combat."
                     scrolling_text(prepare)
+                    combat(lizard_queen, 10)
+                    myplayer.lizardqueen = 2 #player has defeated the dungeon
+                    win = "\nLizard Queen: Alriiight, you wiin. Take my gold and never come baaack."
+                    scrolling_text(win)
+                    myplayer.gold += 1000
+                    gain = "\nYou gained 1000 gold! You're rich!"
+                    scrolling_text(gain)
+                    walking = "\nAs you walk to the exit, you sense that something is wrong."
+                    scrolling_text(walking)
                     while myplayer.potions >= 1:
                         potion = "\nWould you like to quaff a potion and restore 100 HP?"
                         scrolling_text_fast(potion)
@@ -1363,15 +1375,6 @@ def player_examine():
                             put = "\nYou put your potions away."
                             scrolling_text_fast(put)
                             break
-                    combat(lizard_queen, 10)
-                    myplayer.lizardqueen = 2 #player has beat the dungeon
-                    win = "\nLizard Queen: Alriiight, you wiin. Take my gold and never come baaack."
-                    scrolling_text(win)
-                    myplayer.gold += 1000
-                    gain = "\nYou gained 1000 gold! You're rich!"
-                    scrolling_text(gain)
-                    walking = "\nAs you walk to the exit, you sense that something is wrong."
-                    scrolling_text(walking)
                     dots = "\n......."
                     scrolling_text_slow(dots)
                     voice = "\nThe voice of the Queen echoes around you."
@@ -1577,8 +1580,8 @@ def player_examine():
 
 
 
-        #events for Blob Fish Abode b2 (starting area)
-        elif world[myplayer.location][ZONENAME] == "Blob Fish Abode":
+        #events for Your Abode b2 (starting area)
+        elif world[myplayer.location][ZONENAME] == "Your Abode":
             tasty = "\nThere is some tasty cheese on the kitchen table. Would you like to eat it?"
             scrolling_text(tasty)
             choice = input(">>> ")
@@ -1595,6 +1598,12 @@ def player_examine():
             else:
                 say = "\nIf you say so..."
                 scrolling_text(say)
+
+            if myplayer.hometicket == True:
+                found = "\n\nYou found a spare redeem ticket on your table."
+                scrolling_text(found)
+                myplayer.tickets += 1
+                myplayer.hometicket = False
 
         #events for Anime Expo b3
         elif world[myplayer.location][ZONENAME] == "Anime Expo":
@@ -1656,7 +1665,7 @@ def player_examine():
             the_man_suddenly_turns = "\nThe old man suddenly and rapidly turns toward you."
             scrolling_text_fast(the_man_suddenly_turns)
             old_man_asks_riddle = "\nOld Man: I POSSESS REDEEM TICKETS, BUT YOU MUST ANSWER MY RIDDLE"
-            scrolling_text_slow(old_man_asks_riddle)
+            scrolling_text(old_man_asks_riddle)
             do_you_want_to_answer_riddle = "\n\nDo you want to answer his riddle?"
             scrolling_text(do_you_want_to_answer_riddle)
             answer = input(">>> ")
@@ -1665,9 +1674,10 @@ def player_examine():
                 scrolling_text(old_man_asks_riddle_2)
                 riddle_answer = input(">>> ")
                 if riddle_answer.lower() in ["mt. everest", "mount everest", "everest", "mteverest", "mt everest", "mt everest ", "mounteverest"]:
-                    answered_old_man_correct = "\nOld Man: YOU HAVE ANSWER CORRECTLY! YOU HAVE EARNED MY REDEEM TICKET."
-                    scrolling_text_slow(answered_old_man_correct)
-                    myplayer.tickets += 10
+                    answered_old_man_correct = "\nOld Man: YOU HAVE ANSWER CORRECTLY! YOU HAVE EARNED MY REDEEM TICKETS AND GOLD."
+                    scrolling_text(answered_old_man_correct)
+                    myplayer.tickets += 3
+                    myplayer.gold += 150
                     player_item_update()
                     world[myplayer.location][SOLVED] = True
                     myplayer.completion += 6.25
@@ -1678,14 +1688,14 @@ def player_examine():
                     scrolling_text(level_up)
                 else:
                     answered_old_man_incorrect = "\nOld Man: YOU IDIOT! NOW YOU DIE."
-                    scrolling_text_slow(answered_old_man_incorrect)
+                    scrolling_text(answered_old_man_incorrect)
                     fast = "\nThe old man sprints with incredible speed toward you."
                     scrolling_text(fast)
-                    combat(old_man, 3)
+                    combat(old_man, 1)
                     world[myplayer.location][SOLVED] = True
                     gain = "\nYou looted redeem tickets from the man's body!"
                     scrolling_text(gain)
-                    myplayer.tickets += 10
+                    myplayer.tickets += 3
                     myplayer.defeated_enemies.append(old_man)
 
             else:
@@ -1713,10 +1723,10 @@ def player_examine():
                             no_items = "\nThere are no more items available."
                             scrolling_text(no_items)
                         else:
-                            available = "\nThe available items are: "
-                            scrolling_text(available)
                             gold = "\nYou have " + str(myplayer.gold) + " gold available."
                             scrolling_text(gold)
+                            available = "\nThe available items are: "
+                            scrolling_text(available)
                             for key, value in suspicious_shop.inventory.items():
                                 scrolling_text("\n" + key + " : " + str(value))
                             selection = input(">>> ")
@@ -1773,10 +1783,8 @@ def player_examine():
                             scrolling_text(no_fish)
 
                         if myplayer.minions > 0:
-                            ask = "\nShopkeeper: Would you like to sell any minions for 200 gold each?"
-                            ask2 = "\n (This is for advanced players only, do not select yes if you are new to the game.)"
+                            ask = "\nShopkeeper: Would you like to sell any minions for 50 gold each?"
                             scrolling_text(ask)
-                            scrolling_text_fast(ask2)
                             choice = input(">>> ")
 
                             if choice in yes_list:
@@ -1785,17 +1793,17 @@ def player_examine():
                                 scrolling_text(how_many)
                                 amount_choice = input(">>> ")
 
-                                if amount_choice >= myplayer.minions:
+                                if int(amount_choice) >= myplayer.minions:
                                     alright = "\nShopkeeper: Nice doing business."
                                     scrolling_text(alright)
                                     for i in range(0, amount_choice):
-                                        minion_sell = "\nMinion sold for 100 gold."
+                                        minion_sell = "\nMinion sold for 50 gold."
                                         scrolling_text(minion_sell)
                                         myplayer.minions -= 1
-                                        myplayer.gold += 100
+                                        myplayer.gold += 50
 
 
-                                if amount_choice < myplayer.minions:
+                                if int(amount_choice) < myplayer.minions:
                                     dont = "\nShopkeeper: You don't even have enough minions dumbass"
                                     scrolling_text(dont)
 
@@ -1866,6 +1874,17 @@ def player_examine():
                     decide = "\nYou decide not to enter."
                     scrolling_text(decide)
 
+        #events for Lonely Passage d4
+        elif world[myplayer.location][ZONENAME] == "Lonely Passage":
+            nothing = "\nThe surrounding landscape is barren and leaves you with an eerie feeling."
+            scrolling_text(nothing)
+            sentry = "\nWait... A lizard here??"
+            scrolling_text(sentry)
+            combat(lizard_sentry)
+            weird = "\nThat was strange."
+            scrolling_text(weird)
+
+
 
 
 
@@ -1917,12 +1936,12 @@ def setup_game():
     scrolling_text(setup_question1)
     player_name = input(">>> ")
     myplayer.name = player_name
-    #USELESS QUESTION
+
     if myplayer.name.lower() in bonus_names:
         myplayer.gold += 100
         myplayer.fishinglimit -= 2
     else:
-        setup_question2 = "Is Nathan Gelfand your supreme overlord?\n"
+        setup_question2 = "Are you prepared for a perma-death adventure that will challenge you?\n"
         scrolling_text(setup_question2)
         question2_input = input(">>> ")
         if question2_input.lower() in yes_list:
@@ -1932,10 +1951,10 @@ def setup_game():
             sys.exit()
 
     
-    welcome_message = "Please enjoy your Gelfand Adventure!\n"
-    lines = "------"
+    welcome_message = "Please enjoy your Dungeons and Lizards experience.\n"
+    dots = "......"
     scrolling_text(welcome_message)
-    scrolling_text_slow(lines)
+    scrolling_text_slow(dots)
     
     os.system('cls')    
     main_game_loop()           
