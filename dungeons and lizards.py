@@ -1,6 +1,9 @@
 #Dungeons and Lizards
 #Ted
 
+#This game is not fully completed or fully polished; it was simply a fun learning experience for me that can be
+#expanded upon and is still enjoyable
+
 import cmd
 import random
 import textwrap
@@ -1916,11 +1919,12 @@ def gameover():
     scrolling_text_fast(level)
     gold = "\nYour gold amount was: " + str(myplayer.gold)
     scrolling_text_fast(gold)
-    tickets = "\nYour Redeem Ticket amount was: " + str(myplayer.tickets)
-    scrolling_text_fast(tickets)
     minions = "\nYour minion count was: " + str(myplayer.minions)
     scrolling_text(minions)
-    input("")
+    if myplayer.lizardqueen == 2:
+        defeated = "\nYou defeated the lizard queen once."
+        scrolling_text(defeated)
+    input("\nPress Enter to quit.")
     sys.exit()
 
 
