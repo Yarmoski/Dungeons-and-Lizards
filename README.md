@@ -6,7 +6,7 @@ Explore a strange world as yourself! Start off with nothing but a little gold in
 
 This game can be played by anyone! However, tread carefully since death is permanent...
 
-The combat features timed inputs and a variety of possible combat actions to create a sense of intensity and a skill ceiling using the limited tools available for this project.
+The combat features timed inputs and a variety of possible combat actions to create a sense of intensity and a skill ceiling using the limited tools available for this project. 
 
 This is my second Python project.
 Let me know if there are any bugs/problems/improvements to be made!
