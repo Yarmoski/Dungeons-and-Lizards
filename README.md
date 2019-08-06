@@ -8,7 +8,7 @@ This game can be played by anyone! However, tread carefully since death is perma
 
 The combat features timed inputs and a variety of possible combat actions to create a sense of intensity and a skill ceiling using the limited tools available for this project. 
 
-This is my second Python project.
+This is my second Python project. It took me much longer than I expected, as I wanted to make sure the core mechanics were engaging and that locations were at least somewhat interesting with interesting dialogue/text to read. It's not AAA material, but I liked the final result.
 Let me know if there are any bugs/problems/improvements to be made!
 
 (While most of the core mechanics that I wanted have been implemented, the game world is limited. However, it is expandable and can easily accomodate additional content.)
