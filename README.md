@@ -8,7 +8,10 @@ This game can be played by anyone! However, tread carefully since death is perma
 
 The combat features timed inputs and a variety of possible combat actions to create a sense of intensity and a skill ceiling using the limited tools available for this project. 
 
-This is my second Python project. It took me much longer than I expected, as I wanted to make sure the core mechanics were engaging and that locations were at least somewhat interesting with interesting dialogue/text to read. It's not AAA material, but I liked the final result.
-Let me know if there are any bugs/problems/improvements to be made!
+## Motivation
 
-(While most of the core mechanics that I wanted have been implemented, the game world is limited. However, it is expandable and can easily accomodate additional content.)
+I love video games and I am always interested in what goes into making an engaging experience for a user. I also wanted to learn about Python so I figured I could explore both interests by creating a Python RPG! 
+
+## What I learned
+
+This is my second Python project. It took me much longer than I expected, as I wanted to make sure the core mechanics were engaging and that locations were at least somewhat interesting with interesting dialogue/text to read. One of my main goals with the project was to make it scalable and expandable, which I accomplished using a world system that can be added onto infinitely. I learned about challenges that come with user inputs, displaying strings, and much more. I also got to solidify my mastery of Python syntax as I had just learned Python when making this game.
