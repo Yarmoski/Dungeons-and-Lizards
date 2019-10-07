@@ -559,19 +559,32 @@ def prompt():
     what_would_you_like_to_do = "\nWhat would you like to do?"
     scrolling_text_super_fast(what_would_you_like_to_do)
     action = input(">>> ")
-    action_list = ['move', 'look', 'quit', 'inventory', 'help']
+    action_list = ['move', 'look', 'quit', 'inventory', 'help', 'move right', 'move left', 'move up', 'move down']
     while action.lower() not in action_list:
         you_clearly_need_help_menu = "You clearly need to look at the help menu\n"
         scrolling_text_fast(you_clearly_need_help_menu)
         action = input(">>> ")
     if action.lower() == "quit":
-        sys.exit()
+        confirmation = "\nAre you sure you want to quit?\n"
+        scrolling_text(confirmation)
+        choice = input(">>> ")
+        if choice in yes_list:
+            sys.exit()
+        print("...")
     elif action.lower() == 'move':
         player_move()
+    elif action.lower() == 'move up':
+        player_move('up')
+    elif action.lower() == 'move left':
+        player_move('left')
+    elif action.lower() == 'move right':
+        player_move('right')
+    elif action.lower() == 'move down':
+        player_move('down')
     elif action.lower() == 'look':
         player_examine()
     elif action.lower() == 'help':
-        print("- Use 'move' to move")
+        print("- Use 'move' or 'move <direction>' to move")
         print("- Use 'look' to look")
         print("- Use 'quit' to quit")
         print("- Use 'inventory' to check inventory")
@@ -612,41 +625,74 @@ def prompt():
                 put = "\nYou put your potions away."
                 scrolling_text_fast(put)
 
-def player_move():
-    what_direction_would_you_like = "What direction would you like to move?"
-    scrolling_text_super_fast(what_direction_would_you_like)
-    destination = input(">>> ")
-    if destination.lower() == "up":
-        if world[myplayer.location][UP] == "":
-            print("\nYou cannot go up from here.")
-        else:
-            destination = world[myplayer.location][UP]
-            movement_handler(destination)
-    elif destination.lower() == "down":
-        if world[myplayer.location][DOWN] == "":
-            print("\n You cannot go down from here.")
-        elif world[myplayer.location][DOWN] == "c4":
-            if old_man in myplayer.defeated_enemies:
+def player_move(direction = None):
+    if direction != None:
+        if direction == "up":
+            if world[myplayer.location][UP] == "":
+                print("\nYou cannot go up from here.")
+            else:
+                destination = world[myplayer.location][UP]
+                movement_handler(destination)
+        elif direction == "down":
+            if world[myplayer.location][DOWN] == "":
+                print("\n You cannot go down from here.")
+            elif world[myplayer.location][DOWN] == "c4":
+                if old_man in myplayer.defeated_enemies:
+                    destination = world[myplayer.location][DOWN]
+                    movement_handler(destination)
+                else:
+                    deal = "\nYou have to deal with the old man first."
+                    scrolling_text(deal)
+            else:
                 destination = world[myplayer.location][DOWN]
                 movement_handler(destination)
+        elif direction == "left":
+            if world[myplayer.location][LEFT] == "":
+                print("\n You cannot go left from here.")
             else:
-                deal = "\nYou have to deal with the old man first."
-                scrolling_text(deal)
-        else:
-            destination = world[myplayer.location][DOWN]
-            movement_handler(destination)
-    elif destination.lower() == "left":
-        if world[myplayer.location][LEFT] == "":
-            print("\n You cannot go left from here.")
-        else:
-            destination = world[myplayer.location][LEFT]
-            movement_handler(destination)
-    elif destination.lower() == "right":
-        if world[myplayer.location][RIGHT] == "":
-            print("\n You cannot go right from here.")
-        else:
-            destination = world[myplayer.location][RIGHT]
-            movement_handler(destination)
+                destination = world[myplayer.location][LEFT]
+                movement_handler(destination)
+        elif direction == "right":
+            if world[myplayer.location][RIGHT] == "":
+                print("\n You cannot go right from here.")
+            else:
+                destination = world[myplayer.location][RIGHT]
+                movement_handler(destination)
+    else:
+        what_direction_would_you_like = "What direction would you like to move?"
+        scrolling_text_super_fast(what_direction_would_you_like)
+        destination = input(">>> ")
+        if destination.lower() == "up":
+            if world[myplayer.location][UP] == "":
+                print("\nYou cannot go up from here.")
+            else:
+                destination = world[myplayer.location][UP]
+                movement_handler(destination)
+        elif destination.lower() == "down":
+            if world[myplayer.location][DOWN] == "":
+                print("\n You cannot go down from here.")
+            elif world[myplayer.location][DOWN] == "c4":
+                if old_man in myplayer.defeated_enemies:
+                    destination = world[myplayer.location][DOWN]
+                    movement_handler(destination)
+                else:
+                    deal = "\nYou have to deal with the old man first."
+                    scrolling_text(deal)
+            else:
+                destination = world[myplayer.location][DOWN]
+                movement_handler(destination)
+        elif destination.lower() == "left":
+            if world[myplayer.location][LEFT] == "":
+                print("\n You cannot go left from here.")
+            else:
+                destination = world[myplayer.location][LEFT]
+                movement_handler(destination)
+        elif destination.lower() == "right":
+            if world[myplayer.location][RIGHT] == "":
+                print("\n You cannot go right from here.")
+            else:
+                destination = world[myplayer.location][RIGHT]
+                movement_handler(destination)
 
         
 
@@ -1061,10 +1107,10 @@ class proud_warrior:
                     "\n\nThe hammer comes down about to crush your puny body."],
                     #duck
                     6 : ["\n\nThe warrior executes a swinging uppercut.", 
-                    "He swings right for your face."],
+                    "\n\nHe swings right for your face."],
                     #jump
                     7 : ["\n\nThe warrior tries to sweep you off of your feet.", 
-                    "He tries to kick you down and make you unstable."]
+                    "\n\nHe tries to kick you in the knees."]
         }
 
 class shadow_figure:
@@ -1137,7 +1183,7 @@ def player_examine():
     scrolling_text(examination_text_print)
 
     bonus_names = ["Nathan Gelfand", "Nathan Gary Gelfand", "NathanG"]
-    yes_list = ["yes", "affirmative", "sure", "yea", "ye", "ok", "alright", "okay", "roger"]
+    yes_list = ["yes", "affirmative", "sure", "yea", "ye", "ok", "alright", "okay", "roger", "y"]
 
     if world[myplayer.location][SOLVED]:
         this_area_already_explored = "\nThis area has been exhausted."
@@ -1236,7 +1282,7 @@ def player_examine():
             do_you_want_fish = "\n Do you want to go fishing?"
             scrolling_text(do_you_want_fish)
             response = input(">>> ")
-            if myplayer.name.lower() == "andy chou" or response in ["yes", "sure", "ok"]:
+            if myplayer.name.lower() == "andy chou" or response in yes_list:
                 why_ask = "\n Of course you do!"
                 scrolling_text(why_ask)
                 if myplayer.fishingrod == True and myplayer.fishinglimit > 0:
@@ -1248,49 +1294,30 @@ def player_examine():
                     scrolling_text(quick_catch)
                     catch_input = timer(2)
                     if catch_input == "catch":
-                        fish_1 = random.randrange(10000, 20000)
+                        fish_1 = random.randrange(1000000, 20000000)
                         fish_fighting_1 = "\n The fish is fighting back! Type in " + str(fish_1) + " to fight back!"
                         scrolling_text(fish_fighting_1)
-                        fish_input = timer(7)
+                        fish_input = timer(3)
                         if fish_input == str(fish_1):
-                            fish_2 = random.randrange(10000, 200000)
+                            fish_2 = random.randrange(100000000, 2000000000)
                             fish_fighting_2 = "\n The fish is struggling hard! Type in " + str(fish_2) + " to fight it!"
                             scrolling_text(fish_fighting_2)
-                            fish_input = timer(9)
+                            fish_input = timer(4)
                             if fish_input == str(fish_2):
-                                fish_3 = random.randrange(10000, 200000)
-                                fish_fighting_3 = "\n Wow this fish is tough! Type in " + str(fish_3) + " to combat it!"
-                                scrolling_text(fish_fighting_3)
-                                fish_input = timer(10)
-                                if fish_input == str(fish_3):
-                                    fish_4 = random.randrange(10000, 20000000)
-                                    fish_fighting_4 = "\n Its strength is surely waning! Type in " + str(fish_4) + " for a final push!"
-                                    scrolling_text(fish_fighting_4)
-                                    fish_input = timer(15)
-                                    if fish_input == str(fish_4):
-                                        fish_weight = random.randrange(5, 50)
-                                        caught_fish = "\nCongratulations! You caught a " + str(fish_weight) + " pound Blob Fish! Wow!"
-                                        scrolling_text(caught_fish)
-                                        myplayer.fish.append(fish_weight)
-                                        myplayer.fishinglimit -= 1
-                                        limit = "\nYour fishing permit only allows " + str(myplayer.fishinglimit) + " more catches!"
-                                        scrolling_text(limit)
+                                fish_weight = random.randrange(5, 50)
+                                caught_fish = "\nCongratulations! You caught a " + str(fish_weight) + " pound Blob Fish! Wow!"
+                                scrolling_text(caught_fish)
+                                myplayer.fish.append(fish_weight)
+                                myplayer.fishinglimit -= 1
+                                limit = "\nYour fishing permit only allows " + str(myplayer.fishinglimit) + " more catches!"
+                                scrolling_text(limit)
 
-                                    else:
-                                        got_away = "\nThe fish got away!"
-                                        scrolling_text(got_away)
-                                else:
-                                    got_away = "\nThe fish got away!"
-                                    scrolling_text(got_away)
-                                    
                             else:
                                 got_away = "\nThe fish got away!"
                                 scrolling_text(got_away)
-                                
                         else:
                             got_away = "\nThe fish got away!"
-                            scrolling_text(got_away)
-                            
+                            scrolling_text(got_away)                
                     else:
                         got_away = "\nThe fish got away!"
                         scrolling_text(got_away)
@@ -1330,7 +1357,7 @@ def player_examine():
                             scrolling_text(available)
 
                             for key, value in regular_shop.inventory.items():
-                                scrolling_text("\n" + key + " which costs " + str(value) + " gold.")
+                                scrolling_text_fast("\n" + key + " which costs " + str(value) + " gold.")
                             selection = input(">>> ")
                             if selection.lower() in regular_shop.inventory:
                                 #All valid item choices:
