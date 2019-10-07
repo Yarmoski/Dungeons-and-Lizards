@@ -1,5 +1,7 @@
 # Dungeons-and-Lizards
 
+(legacy versions have spaces in filename)
+
 Text-based Role Playing Game on the command line built using Python.
 
 Explore a strange world as yourself! Start off with nothing but a little gold in your pocket, but slowly grow your strength through leveling up and utilizing items. 
