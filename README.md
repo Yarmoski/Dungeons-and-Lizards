@@ -6,11 +6,13 @@ Explore a strange world as yourself! Start off with nothing but a little gold in
 
 This game can be played by anyone! However, tread carefully since death is permanent...
 
-The combat features timed inputs and a variety of possible combat actions to create a sense of intensity and a skill ceiling using the limited tools available for this project. Dungeons-and-Lizards works best on a windows PC.
+The combat features timed inputs and a variety of possible combat actions to create a sense of intensity and a skill ceiling without borrowing code or using external libraries. Dungeons-and-Lizards works best on a windows PC.
 
 ## How to play
 
-Simply run the .exe file!
+Simply run the .exe file! 
+
+If tihs is not possible, the .exe or Python files can be converted to compatible formats using various free tools that can be found online. Contact Ted Yarmoski regarding any questions.
 
 ## Motivation
 
