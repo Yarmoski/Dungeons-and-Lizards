@@ -1,4 +1,6 @@
 
+from text_effects import *
+
 def player_examine():
     os.system('cls')
     examining = "\n!!!Inspecting location"
@@ -7,9 +9,6 @@ def player_examine():
     scrolling_text_super_fast(line)
     examination_text_print = "\n" + world[myplayer.location][EXAMINATION]
     scrolling_text(examination_text_print)
-
-    BONUS_NAMES = ["Nathan Gelfand", "Nathan Gary Gelfand", "NathanG"]
-    YES_LIST = ["yes", "affirmative", "sure", "yea", "ye", "ok", "alright", "okay", "roger", "y"]
 
     if world[myplayer.location][SOLVED]:
         this_area_already_explored = "\nThis area has been exhausted."

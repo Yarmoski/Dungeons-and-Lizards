@@ -1,3 +1,6 @@
+import os
+from global_vars import *
+from functionality import *
 
 #Title screen options
 def title_screen_selections():

@@ -7,15 +7,15 @@ import os
 import time
 import msvcrt
 
-import player
-import shops
-import menus
-import text_effects
-import interactability
-import combat
-import enemies
-import events
-import functionality
+from player import *
+from shops import *
+from menus import *
+from text_effects import *
+from interactability import *
+from combat import *
+from enemies import *
+from events import *
+from functionality import *
 
 myplayer = Player()
 suspicious_shop = suspicious_shop()

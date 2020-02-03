@@ -1,3 +1,4 @@
+from text_effects import *
 
 def print_location():
     print("\n" + "=" * len(world[myplayer.location][DESCRIPTION]))

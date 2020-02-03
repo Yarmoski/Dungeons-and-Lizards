@@ -1,3 +1,6 @@
+import os
+from text_effects import *
+from player import *
 
 ###CORE GAME LOOP
 

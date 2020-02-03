@@ -1,3 +1,6 @@
+import os
+from text_effects import *
+from functionality import gameover
 
 ##########COMBAT##############
 def combat(enemy, speed = 5):

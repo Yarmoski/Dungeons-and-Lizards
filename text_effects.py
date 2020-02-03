@@ -1,3 +1,5 @@
+import sys
+import time
 
 def scrolling_text(string):
     for char in string:
