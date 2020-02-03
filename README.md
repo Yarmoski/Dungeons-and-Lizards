@@ -12,7 +12,7 @@ The combat features timed inputs and a variety of possible combat actions to cre
 
 Simply run the .exe file! 
 
-If tihs is not possible, the .exe or Python files can be converted to compatible formats using various free tools that can be found online. Contact Ted Yarmoski regarding any questions.
+If this is not possible, the .exe or Python files can be converted to compatible formats using various free tools that can be found online. Contact Ted regarding any questions.
 
 ## Motivation
 
