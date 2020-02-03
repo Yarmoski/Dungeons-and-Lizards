@@ -1,9 +1,17 @@
+import random
+import sys
+import os
+import time
+import msvcrt
+
 import os
 from text_effects import *
-from functionality import gameover
+from functionality import *
+from global_vars import *
+from enemies import *
 
 ##########COMBAT##############
-def combat(enemy, speed = 5):
+def combat(myplayer, enemy, speed = 5):
 
     ### The system for player input timing out is only fully compatible with command line, did not find other solution to this problem
 

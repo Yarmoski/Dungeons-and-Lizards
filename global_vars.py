@@ -1,5 +1,5 @@
 
-YES_LIST = ["yes", "affirmative", "sure", "yea", "ye", "ok", "alright", "okay", "roger"]
+YES_LIST = ["yes", "affirmative", "sure", "yea", "ye", "ok", "alright", "okay", "roger", "y"]
 BONUS_NAMES = ["nathan gelfand", "nathan gary gelfand", "nathang", "nathan"]
 
 

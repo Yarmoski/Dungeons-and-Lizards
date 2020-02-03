@@ -1,15 +1,17 @@
 import os
 from text_effects import *
 from player import *
+from global_vars import *
+from interactability import *
 
 ###CORE GAME LOOP
 
 
-def main_game_loop():
+def main_game_loop(myplayer):
     while myplayer.gameover == False:
-        prompt()
+        prompt(myplayer)
 
-def gameover():
+def gameover(myplayer):
     failed = "\n You have failed in your journey..."
     scrolling_text_slow(failed)
     luck = "\nBetter luck next time!"
@@ -29,7 +31,7 @@ def gameover():
 
 
 ###SETUP
-def setup_game():
+def setup_game(myplayer):
     os.system('cls')
 
 
@@ -60,4 +62,4 @@ def setup_game():
     scrolling_text_slow(dots)
     
     os.system('cls')    
-    main_game_loop()        
+    main_game_loop(myplayer)        

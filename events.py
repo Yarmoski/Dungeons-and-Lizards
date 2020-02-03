@@ -1,7 +1,10 @@
+import os
 
 from text_effects import *
+from global_vars import *
+from combat import *
 
-def player_examine():
+def player_examine(myplayer):
     os.system('cls')
     examining = "\n!!!Inspecting location"
     scrolling_text(examining)
@@ -53,20 +56,20 @@ def player_examine():
                             print("================================")
                             no_ticket_stop_wasting_time = "\nMinion Master: You don't have enough tickets. Stop wasting my time and come back when you do."
                             scrolling_text(no_ticket_stop_wasting_time)
-                            player_item_update()
+                            player_item_update(myplayer)
                         elif int(purchase_amt) == myplayer.tickets:
                             print("====================================================")
                             you_want_to_spend_all_tickets = "\nMinion Master: You want to spend all of your tickets? Alright then."
                             scrolling_text(you_want_to_spend_all_tickets)
                             myplayer.minions += myplayer.tickets
                             myplayer.tickets = 0
-                            player_item_update()
+                            player_item_update(myplayer)
                         elif int(purchase_amt) < myplayer.tickets:
                             minion_master_here_you_go = "\nMinion Master: Here you go!"
                             scrolling_text(minion_master_here_you_go)
                             myplayer.minions += int(purchase_amt)
                             myplayer.tickets -= int(purchase_amt)
-                            player_item_update()
+                            player_item_update(myplayer)
                     else:
                         no_ticket_text = "\nMinion Master: Return once you have tickets."
                         scrolling_text(no_ticket_text)
@@ -91,7 +94,7 @@ def player_examine():
                 if myplayer.flute == True:
                     play = "\nYou attempt to play your flute. It's so terrible that the creature runs at you to make it stop."
                     scrolling_text(play)
-                    combat(raccoon, 4)
+                    combat(myplayer, raccoon, 4)
                     yay = "\nThe minion is relieved and joins up with you!"
                     scrolling_text(yay)
                     myplayer.minions += 1
@@ -304,7 +307,7 @@ def player_examine():
                             choice = input(">>> ")
 
                             if choice in YES_LIST:
-                                player_item_update()
+                                player_item_update(myplayer)
                                 how_many = "\nShopkeeper: How many would you like to sell?"
                                 scrolling_text(how_many)
                                 amount_choice = input(">>> ")
@@ -359,7 +362,7 @@ def player_examine():
                 if choice in YES_LIST:
                     prepare = "\nYou prepare for intense combat."
                     scrolling_text(prepare)
-                    combat(lizard_queen, 10)
+                    combat(myplayer, lizard_queen, 10)
                     myplayer.lizardqueen = 2 #player has defeated the dungeon
                     win = "\nLizard Queen: Alriiight, you wiin. Take my gold and never come baaack."
                     scrolling_text(win)
@@ -399,38 +402,38 @@ def player_examine():
                     scrolling_text_slow(dots)
                     intercept = "\nYou are intercepted by a couple of fast ones."
                     scrolling_text(intercept)
-                    combat(lizard_sentry)
-                    combat(lizard_sentry)
+                    combat(myplayer, lizard_sentry)
+                    combat(myplayer, lizard_sentry)
                     more = "\nHow many are there?! The walls and ceiling start to rumble and collapse."
                     scrolling_text(more)
-                    combat(lizard_guard)
-                    combat(lizard_guard)
+                    combat(myplayer, lizard_guard)
+                    combat(myplayer, lizard_guard)
                     another = "\nAnother one grabs at your feet."
                     scrolling_text(another)
-                    combat(lizard_sentry)
+                    combat(myplayer, lizard_sentry)
                     almost = "\nYou escape with the cave collapsing behind you! You're safe!"
                     scrolling_text(almost)
-                    print_location()
+                    print_location(myplayer)
                     what_would_you_like_to_do = "\nWhat would you li"
                     scrolling_text(what_would_you_like_to_do)
                     suddenly = "\nWait! The lizards have one more card to play."
                     scrolling_text(suddenly)
                     large = "\nA massive raccoon leaps out of the top of the den, breaking off the last of the chains placed upon it by the lizards."
                     scrolling_text(large)
-                    combat(raccoon)
+                    combat(myplayer, raccoon)
                     wow = "\nFinally! You've made it to complete safety and defeated the lizards! You have a feeling that you might meet again..."
                     scrolling_text(wow)
                     congrats = "\nCongratulations!"
                     scrolling_text(congrats)
-                    print_location()
+                    print_location(myplayer)
                     what_would_you_like_to_do = "\nWhat would yo"
                     scrolling_text(what_would_you_like_to_do)
                     another = "\nOne last sentry digs through the rocks and sprints toward you!"
                     scrolling_text(another)
-                    combat(lizard_sentry)
+                    combat(myplayer, lizard_sentry)
                     last = "\nAlright. That should be the last of them."
                     scrolling_text(last)
-                    print_location()
+                    print_location(myplayer)
                     what_would_you_like_to_do = "\nWhat would you like to"
                     scrolling_text(what_would_you_like_to_do)
                     another = "\nA lizard guard crawls its way from out under a rock. It stands to face you!"
@@ -456,7 +459,7 @@ def player_examine():
                     else:
                         without = "\nWithout a stealth item to aid you, the sentry easily detects you."
                         scrolling_text(without)
-                        combat(lizard_sentry)
+                        combat(myplayer, lizard_sentry)
                         ticket_loot = random.randint(1, 10)
                         if ticket_loot == 5:
                             found = "\nYou found an additional redeem ticket on the sentry's body!"
@@ -469,19 +472,19 @@ def player_examine():
                     scrolling_text(mother)
                     tight = "\nThe tight cave space allows you to position yourself strategically and face each guard one on one!"
                     scrolling_text(tight)
-                    combat(lizard_guard)
+                    combat(myplayer, lizard_guard)
                     another = "\nAnother lizard guard approaches!"
                     scrolling_text(another)
-                    combat(lizard_guard)
+                    combat(myplayer, lizard_guard)
                     another = "\nAnother lizard guard attacks!"
                     scrolling_text(another)
-                    combat(lizard_guard)
+                    combat(myplayer, lizard_guard)
                     another = "\nAnother lizard guard runs toward you!"
                     scrolling_text(another)
-                    combat(lizard_guard)
+                    combat(myplayer, lizard_guard)
                     another = "\nHow many are there?!!"
                     scrolling_text(another)
-                    combat(lizard_guard)
+                    combat(myplayer, lizard_guard)
                     mother2 = "\nFinally, with the unconcious bodies of the guards lying around her, the queen lizard has had enough."
                     scrolling_text(mother2)
                     speak = "\nQueen Lizard: If you can beeest me in combat, I wiiiill reward you with my gold bounty cheeest."
@@ -509,7 +512,7 @@ def player_examine():
                                 put = "\nYou put your potions away."
                                 scrolling_text_fast(put)
                                 break
-                        combat(lizard_queen, 10)
+                        combat(myplayer, lizard_queen, 10)
                         myplayer.lizardqueen = 2 #player has beat the dungeon
                         win = "\nLizard Queen: Alriiight, you wiin. Take my gold and never come baaack."
                         scrolling_text(win)
@@ -526,38 +529,38 @@ def player_examine():
                         scrolling_text(burst)
                         intercept = "\nYou are intercepted by a couple of fast ones."
                         scrolling_text(intercept)
-                        combat(lizard_sentry)
-                        combat(lizard_sentry)
+                        combat(myplayer, lizard_sentry)
+                        combat(myplayer, lizard_sentry)
                         more = "\nHow many are there?! The walls and ceiling start to rumble and collapse."
                         scrolling_text(more)
-                        combat(lizard_guard)
-                        combat(lizard_guard)
+                        combat(myplayer, lizard_guard)
+                        combat(myplayer, lizard_guard)
                         another = "\nAnother one grabs at your feet."
                         scrolling_text(another)
-                        combat(lizard_sentry)
+                        combat(myplayer, lizard_sentry)
                         almost = "\nYou escape with the cave collapsing behind you! You're safe!"
                         scrolling_text(almost)
-                        print_location()
+                        print_location(myplayer)
                         what_would_you_like_to_do = "\nWhat would you li"
                         scrolling_text_super_fast(what_would_you_like_to_do)
                         suddenly = "\nWait! The lizards have one more card to play."
                         scrolling_text(suddenly)
                         large = "\nA massive raccoon leaps out of the top of the den, breaking off the last of the chains placed upon it by the lizards."
                         scrolling_text(large)
-                        combat(raccoon)
+                        combat(myplayer, raccoon)
                         wow = "\nFinally! You've made it to complete safety and defeated the lizards! You have a feeling that you might meet again..."
                         scrolling_text(wow)
                         congrats = "\nCongratulations!"
                         scrolling_text(congrats)
-                        print_location()
+                        print_location(myplayer)
                         what_would_you_like_to_do = "\nWhat would yo"
                         scrolling_text_super_fast(what_would_you_like_to_do)
                         another = "\nOne last sentry digs through the rocks and sprints toward you!"
                         scrolling_text(another)
-                        combat(lizard_sentry)
+                        combat(myplayer, lizard_sentry)
                         last = "\nAlright. That should be the last of them."
                         scrolling_text(last)
-                        print_location()
+                        print_location(myplayer)
                         what_would_you_like_to_do = "\nWhat would you like to"
                         scrolling_text_super_fast(what_would_you_like_to_do)
                         another = "\nA lizard guard crawls its way from out under a rock. It stands to face you!"
@@ -647,7 +650,7 @@ def player_examine():
                                 start = "\nHe approaches with a plastic sword."
                                 scrolling_text(prepare)
                                 scrolling_text(start)
-                                combat(sweaty_man, 10)
+                                combat(myplayer, sweaty_man, 10)
                                 myplayer.defeated_enemies.append("sweaty man")
                             else:
                                 nope = "\nYou resist the urge to destroy the man in combat."
@@ -663,7 +666,7 @@ def player_examine():
                         start = "\nHe approaches with a plastic sword."
                         scrolling_text(prepare)
                         scrolling_text(start)
-                        combat(sweaty_man, 10)
+                        combat(myplayer, sweaty_man, 10)
                         myplayer.defeated_enemies.append("sweaty man")
 
             else:
@@ -688,7 +691,7 @@ def player_examine():
                     scrolling_text(answered_old_man_correct)
                     myplayer.tickets += 3
                     myplayer.gold += 150
-                    player_item_update()
+                    player_item_update(myplayer)
                     world[myplayer.location][SOLVED] = True
                     myplayer.completion += 6.25
                     old_man_returns = "\n The old man returns to his spot and continues standing there."
@@ -701,7 +704,7 @@ def player_examine():
                     scrolling_text(answered_old_man_incorrect)
                     fast = "\nThe old man sprints with incredible speed toward you."
                     scrolling_text(fast)
-                    combat(old_man, 1)
+                    combat(myplayer, old_man, 1)
                     world[myplayer.location][SOLVED] = True
                     gain = "\nYou looted redeem tickets from the man's body!"
                     scrolling_text(gain)
@@ -798,7 +801,7 @@ def player_examine():
                             choice = input(">>> ")
 
                             if choice in YES_LIST:
-                                player_item_update()
+                                player_item_update(myplayer)
                                 how_many = "\nShopkeeper: How many would you like to sell?"
                                 scrolling_text(how_many)
                                 amount_choice = input(">>> ")
@@ -853,7 +856,7 @@ def player_examine():
                 else:
                     spotted = "\nYou were spotted! He runs right toward you."
                     scrolling_text(spotted)
-                combat(proud_warrior)
+                combat(myplayer, proud_warrior)
             if myplayer.dojo == 2:
                 search = "\nHm. Your searching does not seem to be very productive."
                 scrolling_text(search)
@@ -890,6 +893,6 @@ def player_examine():
             scrolling_text(nothing)
             sentry = "\nWait... A lizard here??"
             scrolling_text(sentry)
-            combat(lizard_sentry)
+            combat(myplayer, lizard_sentry)
             weird = "\nThat was strange."
             scrolling_text(weird)

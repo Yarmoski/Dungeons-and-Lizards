@@ -1,3 +1,4 @@
+from global_vars import *
 
 
 ##############ENEMIES#################

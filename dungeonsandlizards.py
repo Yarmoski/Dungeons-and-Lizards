@@ -34,4 +34,4 @@ corrupted_demon = corrupted_demon()
 
 
 ###START THE GAME
-title_screen()
+title_screen(myplayer)
