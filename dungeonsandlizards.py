@@ -34,4 +34,4 @@ corrupted_demon = corrupted_demon()
 
 
 ###START THE GAME
-title_screen(myplayer)
+title_screen(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon)

@@ -4,7 +4,7 @@ from text_effects import *
 from global_vars import *
 from combat import *
 
-def player_examine(myplayer):
+def player_examine(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon):
     os.system('cls')
     examining = "\n!!!Inspecting location"
     scrolling_text(examining)
@@ -621,16 +621,16 @@ def player_examine(myplayer):
         #events for Anime Expo b3
         elif world[myplayer.location][ZONENAME] == "Anime Expo":
             walk = "\nWould you like to enter?"
-            scrolling_text(walk)
+            scrolling_text_super_fast(walk)
             choice = input(">>> ")
             if choice in YES_LIST:
                 walking = "\nYou decide to walk inside to explore for a while."
-                scrolling_text(walking)
+                scrolling_text_super_fast(walking)
                 if "sweaty man" not in myplayer.defeated_enemies:
                     comes = "\nA large sweaty man comes up to you."
-                    scrolling_text(comes)
+                    scrolling_text_super_fast(comes)
                     talk = "\nMan: DO YOU WANNA BUY MY ANIME FIGURINE AND COSPLAY WITH ME"
-                    scrolling_text(talk)
+                    scrolling_text_super_fast(talk)
                     choice2 = input(">>> ")
 
                     if choice2 in YES_LIST:

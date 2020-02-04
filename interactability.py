@@ -22,7 +22,7 @@ def player_item_update(myplayer):
     player_items = "\nYou now have " + str(myplayer.tickets) + " tickets and " + str(myplayer.minions) + " minions."
     scrolling_text(player_items)
 
-def prompt(myplayer):
+def prompt(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon):
     if myplayer.level >= 16:
         congrats = "\nCongrats! You have defeated the enemies that are currently present in the game. This game is unfinished and may see further development in the future. Thank you for playing!"
         scrolling_text(congrats)
@@ -54,7 +54,7 @@ def prompt(myplayer):
     elif action.lower() == 'move down':
         player_move(myplayer, 'down')
     elif action.lower() == 'look':
-        player_examine(myplayer)
+        player_examine(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon)
     elif action.lower() == 'help':
         print("- Use 'move' or 'move <direction>' to move")
         print("- Use 'look' to look")
@@ -65,6 +65,7 @@ def prompt(myplayer):
         print("- In combat, you have a limited time to enter your move depending on the enemy")
         print("- Make sure to enter your combat moves correctly or you will stumble!")
     elif action.lower() == 'inventory':
+        os.system('cls')
         level = "\nYou are level " + str(myplayer.level)
         scrolling_text_fast(level)
         hp = "\nYour current HP is %d/%d" % (myplayer.hp, myplayer.maxhp)
@@ -174,23 +175,3 @@ def movement_handler(myplayer, destination):
     myplayer.location = destination
 
 
-#returns the player's input within the time
-def timer(timeout = 5):
-    start_time = time.time()
-    print("")
-    print(">>> ")
-    enter = ""
-    while True:
-        if msvcrt.kbhit():
-            c = msvcrt.getche()
-            if ord(c) == 13: # enter_key
-                break
-            elif ord(c) >= 32: #space_char
-                enter += str(c)
-        if (time.time() - start_time) > timeout:
-            break
-
-    if len(enter) > 0:
-        return enter.replace("b'", "").replace("'", "")
-    else:
-        return "Stumble"

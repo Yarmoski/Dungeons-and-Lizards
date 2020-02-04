@@ -7,9 +7,9 @@ from interactability import *
 ###CORE GAME LOOP
 
 
-def main_game_loop(myplayer):
+def main_game_loop(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon):
     while myplayer.gameover == False:
-        prompt(myplayer)
+        prompt(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon)
 
 def gameover(myplayer):
     failed = "\n You have failed in your journey..."
@@ -31,10 +31,8 @@ def gameover(myplayer):
 
 
 ###SETUP
-def setup_game(myplayer):
+def setup_game(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon):
     os.system('cls')
-
-
 
     #NAME
     setup_question1 = "What is your name?\n"
@@ -62,4 +60,5 @@ def setup_game(myplayer):
     scrolling_text_slow(dots)
     
     os.system('cls')    
-    main_game_loop(myplayer)        
+    main_game_loop(myplayer, suspicious_shop, regular_shop, lizard_sentry, lizard_guard, lizard_queen, sweaty_man, old_man, raccoon, proud_warrior, corrupted_demon)        
+

@@ -10,6 +10,27 @@ from functionality import *
 from global_vars import *
 from enemies import *
 
+    #returns the player's input within the time
+def timer(timeout = 5):
+    start_time = time.time()
+    print("")
+    print(">>> ")
+    enter = ""
+    while True:
+        if msvcrt.kbhit():
+            c = msvcrt.getche()
+            if ord(c) == 13: # enter_key
+                break
+            elif ord(c) >= 32: #space_char
+                enter += str(c)
+        if (time.time() - start_time) > timeout:
+            break
+
+    if len(enter) > 0:
+        return enter.replace("b'", "").replace("'", "")
+    else:
+        return "Stumble"
+
 ##########COMBAT##############
 def combat(myplayer, enemy, speed = 5):
 
