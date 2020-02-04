@@ -33,6 +33,7 @@ Creating this game also taught me another important lesson about setting realisi
 - Add more statistics and dramatic effect to death sequence
 - Saves and continue options (disable rogue-like mode)
 - Persistent progression (small stat bonuses, minor items, gold)
+- Add health meters to combat in addition to the number display
 - Use different text effects/colors to create different tones
 - Increase role of minions outside of combat (puzzles, quests)
 - More map zones + keys to access them
