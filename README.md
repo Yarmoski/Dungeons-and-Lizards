@@ -24,6 +24,8 @@ This project took me much longer than I expected, as I wanted to make sure the c
 
 Creating this game also taught me another important lesson about setting realisitc goals. With almost 2000 lines of code and excessive StackOverflow browsing, I may have been too ambitious in my goals for the game. However, I am glad that I stuck with it and created a working game with some depth to it!
 
+As I learn more about better programming practices, I always look back at my past projects and think about how I could have done differently. As this was one of my first programming projects, there are many improvements and readability updates I could make. While going back to refactor the entire project is out of its scope, I've already gone ahead and made many improvements. I will continue to make these improvements as I learn more.
+
 ## Roadmap
 
 - Implement more ways to get gold (farming + selling crops, more fishing features, minigames)
