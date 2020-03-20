@@ -20,11 +20,13 @@ I love video games and I am always interested in what goes into making an engagi
 
 ## What I learned
 
+As this was one of my first programming projects, there are many improvements and readability updates I could make. While going back to refactor the entire project is out of its scope, I've already gone ahead and made many improvements. I will continue to make these improvements as I learn more.
+
 This project took me much longer than I expected, as I wanted to make sure the core mechanics were engaging and that locations were full of dialogue/text to read. One of my main goals with the project was to make it scalable and expandable, which I accomplished using a world system that can be added onto infinitely. I learned about challenges that come with user inputs, displaying strings, classes/attributes and much more. I also got to solidify my mastery of Python syntax as I had just learned Python when making this game.
 
 Creating this game also taught me another important lesson about setting realisitc goals. With almost 2000 lines of code and excessive StackOverflow browsing, I may have been too ambitious in my goals for the game. However, I am glad that I stuck with it and created a working game with some depth to it!
 
-As I learn more about better programming practices, I always look back at my past projects and think about how I could have done differently. As this was one of my first programming projects, there are many improvements and readability updates I could make. While going back to refactor the entire project is out of its scope, I've already gone ahead and made many improvements. I will continue to make these improvements as I learn more.
+As I learn more about better programming practices, I always look back at my past projects and think about how I could have done differently. 
 
 ## Roadmap
 
