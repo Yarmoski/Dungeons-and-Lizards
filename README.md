@@ -28,6 +28,7 @@ As I learn more about better programming practices, I always look back at my pas
 
 ## Roadmap
 
+- Tutorial! New players seem to be lost
 - Implement more ways to get gold (farming + selling crops, more fishing features, minigames)
 - QUESTS!
 - Finalize and implement the "corrupted demon" encounter/enemy, test whether the text effects work in the console
