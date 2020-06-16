@@ -1,3 +1,6 @@
+## Note
+Looking back at the code for this project with the additional knowledge I've accumulated over time, I can clearly see that the code for this project is flawed. The structure and organization is poor, which is understandable considering this was one of my first projects. I'm glad I am now able to recognize the mistakes that I have made here and I hope to keep learning more about Python and programming in general!
+
 # Dungeons-and-Lizards
 
 Text-based Role Playing Game on the command line built using Python.
